@@ -1,5 +1,8 @@
 package com.gavin.basicTest.MutiThreadLearning;
 
+/**
+ * 完全线程安全单例
+ */
 public class SingleInstanceTest {
     private static volatile SingleInstanceTest _instance;
     private SingleInstanceTest(){}

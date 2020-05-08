@@ -4,6 +4,9 @@ import java.util.Random;
 import java.util.concurrent.Phaser;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 多阶段栅栏
+ */
 @SuppressWarnings("all")
 public class PhaserTest {
     MarriagePhaser phaser = new MarriagePhaser();
