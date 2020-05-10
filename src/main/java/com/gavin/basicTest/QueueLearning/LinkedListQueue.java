@@ -67,7 +67,6 @@ public class LinkedListQueue {
             currentLeft--;
             System.out.println("移除"+helpNode.num+","+"剩余"+currentLeft+"个");
             helpNode=first.next;
-
         }
     }
 }
