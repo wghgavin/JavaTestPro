@@ -1,11 +1,9 @@
 package com.gavin.basicTest.MysqlLearning;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
-import jdk.vm.ci.meta.Local;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Properties;
 
 /**

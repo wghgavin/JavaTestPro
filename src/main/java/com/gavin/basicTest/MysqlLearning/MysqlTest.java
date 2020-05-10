@@ -181,6 +181,7 @@ public class MysqlTest {
             pst.setObject(2,"123");
             pst.setObject(3,"456789123");
             int result= pst.executeUpdate();
+            System.out.println(result);
             pst.close();
             JdbcUtil.free();//关闭当前线程的数据库连接
         } catch (Exception e) {
