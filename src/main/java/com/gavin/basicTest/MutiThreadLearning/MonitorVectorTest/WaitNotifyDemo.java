@@ -1,6 +1,9 @@
 package com.gavin.basicTest.MutiThreadLearning.MonitorVectorTest;
 
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
+
 public class WaitNotifyDemo {
     MyVector vector = new MyVector();
     final Object synObj = new Object();
