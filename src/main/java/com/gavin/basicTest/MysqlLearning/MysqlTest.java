@@ -16,6 +16,7 @@ public class MysqlTest {
         IDepartmentDAO dao = new DepartmentDAOImpl();
         int result = dao.add(new Department(1,"测试","测试案例"));
         System.out.println(result>0?"成功添加":"添加失败");
+
     }
 
     /**

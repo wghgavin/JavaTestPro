@@ -22,6 +22,10 @@ public class JdbcUtil {
             e.printStackTrace();
         }
     }
+    public static DataSource getDs(){
+        return ds;
+    }
+
 
     /**
      * 这个方法不能保证同一个线程共享同一个连接对象,
