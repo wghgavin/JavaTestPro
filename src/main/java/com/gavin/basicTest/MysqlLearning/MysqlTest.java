@@ -1,5 +1,9 @@
 package com.gavin.basicTest.MysqlLearning;
 
+import com.gavin.basicTest.MysqlLearning.bean.Department;
+import com.gavin.basicTest.MysqlLearning.dao.IDepartmentDAO;
+import com.gavin.basicTest.MysqlLearning.dao.impl.DepartmentDAOImpl;
+
 import java.sql.*;
 
 /**
@@ -9,7 +13,9 @@ import java.sql.*;
  */
 public class MysqlTest {
     public static void main(String[] args) {
-          new MysqlTest().mysqlThreadPoolTest();
+        IDepartmentDAO dao = new DepartmentDAOImpl();
+        int result = dao.add(new Department(1,"测试","测试案例"));
+        System.out.println(result>0?"成功添加":"添加失败");
     }
 
     /**
