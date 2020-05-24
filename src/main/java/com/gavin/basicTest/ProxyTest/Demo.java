@@ -8,7 +8,7 @@ import java.net.UnknownHostException;
 
 public class Demo {
     public static void main(String[] args) {
-        MyProxyTargetImpl target = new MyProxyTargetImpl();
+        IMyProxyTarget target = new MyProxyTargetImpl();
         ClassLoader loader = target.getClass().getClassLoader();
         Class<?>[] interfaces = target.getClass().getInterfaces();
         Handle h = new Handle(target);
