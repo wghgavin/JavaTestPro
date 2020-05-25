@@ -8,6 +8,7 @@ import java.util.Arrays;
 /**
  * 冒泡排序(时间复杂度为O(n2))【稳定型】//从小到大
  * 优化，增加flag，标志没有进行对换，说明早已经排序成功
+ * 存在问题效率低
  */
 @SortMethod("冒泡排序")
 public class BubbleSorting implements ISorting {
