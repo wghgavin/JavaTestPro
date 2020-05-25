@@ -7,7 +7,7 @@ import com.gavin.basicTest.SortingLearning.SortImpl.SelectSorting;
 import java.lang.reflect.Proxy;
 import java.util.Random;
 import java.util.Scanner;
-
+//排序算法稳定性的描述https://blog.csdn.net/yangnianjinxin/article/details/77918882
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -41,6 +41,7 @@ public class Main {
             for (int i=0;i<array.length;i++){
                 array[i]=r.nextInt(800000);
             }
+            //使用动态代理和工厂模式处理对象，实现执行时间记录
             ClassLoader classLoader = sortMethod.getClass().getClassLoader();
             Class<?>[] interfaces = sortMethod.getClass().getInterfaces();
             handle=new SortingProxyHandle(sortMethod);

@@ -6,7 +6,7 @@ import com.gavin.basicTest.SortingLearning.ISorting;
 import java.util.Arrays;
 
 /**
- * 插入排序(从小到大)
+ * 插入排序（O(n2)）(从小到大)【不稳定，会破坏结构】
  * 思想:
  * 把n个待排序的元素看成为一个有序表和一个无序表，开始时有序表中只
  * 包含一个元素，无序表中包含n-1个元素，排序过程中每次从无序表中取出
@@ -19,15 +19,20 @@ import java.util.Arrays;
 public class InsertSorting implements ISorting {
     @Override
     public void sort(int[] array) {
+        int insertValue =0;
+        int insertIndex =0;
         for(int i=1;i<array.length;i++){
-            int insertValue=array[i];//待插入对象
-            int insertIndex =i-1;//待插入的索引
+            insertValue=array[i];//待插入对象
+            insertIndex =i-1;//待插入的索引
             while(insertIndex>=0&&array[insertIndex]>insertValue){
                 array[insertIndex+1]=array[insertIndex];//把带插入的对象向前挪
                 insertIndex--;//继续往下找
             }
             //到达出口则把待插入对象放到该位置
-            array[insertIndex+1] = insertValue;
+            //这里判断是否需要赋值加快速度,因为可能出现array[inertIndex]<insertValue的情况
+            if(insertIndex+1!=i){
+                array[insertIndex+1] = insertValue;
+            }
         }
         System.out.println(Arrays.toString(array));
     }

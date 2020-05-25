@@ -6,7 +6,8 @@ import com.gavin.basicTest.SortingLearning.ISorting;
 import java.util.Arrays;
 
 /**
- * 选择排序,从小到大
+ * 选择排序,从小到大【稳定】(O(n2))
+ *
  * 思想:第一次从arr[0]~arr[n-1]选取最小值，与arr[0]交换,第二次从
  * arr[1]~arr[n-1]中选取最小值，与arr[1]交换,第三次....以此类推,
  * 第n-1次从arr[n-2]~arr[n-1]中选取最小值，与arr[n-2]交换
