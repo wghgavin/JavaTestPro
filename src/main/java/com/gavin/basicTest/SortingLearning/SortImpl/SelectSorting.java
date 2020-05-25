@@ -18,9 +18,9 @@ import java.util.Arrays;
 public class SelectSorting implements ISorting {
     @Override
     public void sort(int[] array) {
-        int min =0;
-        int minIndex=0;
-        int temp=0;
+        int min =0;//存储每次取得最小值
+        int minIndex=0;//存储最小值的索引
+        int temp=0;//进行临时转换
         for(int i=0;i<array.length-1;i++){
             min=array[i];
             for(int j=i;j<array.length;j++){

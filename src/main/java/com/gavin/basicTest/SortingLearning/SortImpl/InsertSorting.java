@@ -24,7 +24,8 @@ public class InsertSorting implements ISorting {
         for(int i=1;i<array.length;i++){
             insertValue=array[i];//待插入对象
             insertIndex =i-1;//待插入的索引
-            while(insertIndex>=0&&array[insertIndex]>insertValue){
+            while(insertIndex>=0&&array[insertIndex]>insertValue){//insertIndex>0表示最后找到的不能越出界限，
+                // array[insertIndex]>insertValue表示找到大于待插入的
                 array[insertIndex+1]=array[insertIndex];//把带插入的对象向前挪
                 insertIndex--;//继续往下找
             }
