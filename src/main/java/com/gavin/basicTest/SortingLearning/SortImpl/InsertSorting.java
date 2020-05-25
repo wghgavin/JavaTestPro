@@ -36,6 +36,6 @@ public class InsertSorting implements ISorting {
                 array[insertIndex+1] = insertValue;
             }
         }
-        System.out.println(Arrays.toString(array));
+        //System.out.println(Arrays.toString(array));
     }
 }

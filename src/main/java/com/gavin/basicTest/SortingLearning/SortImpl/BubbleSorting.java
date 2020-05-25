@@ -34,6 +34,6 @@ public class BubbleSorting implements ISorting {
         }
         //Arrays.stream(array).forEach(System.out::println);
         //或者
-        System.out.println(Arrays.toString(array));
+        //System.out.println(Arrays.toString(array));
     }
 }

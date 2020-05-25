@@ -33,6 +33,6 @@ public class SelectSorting implements ISorting {
             array[i]=min;
             array[minIndex]=temp;
         }
-        System.out.println(Arrays.toString(array));
+       // System.out.println(Arrays.toString(array));
     }
 }

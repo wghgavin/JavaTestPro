@@ -23,7 +23,7 @@ public class SortingProxyHandle<T> implements InvocationHandler {
         System.out.println(sortName+"正在执行");
         Object result = method.invoke(target,args);
         long end=System.currentTimeMillis();
-        System.out.println(sortName+"耗时"+(end-start)+"ms");
+        System.out.println(sortName + "耗时" + (end - start) + "ms");
         return  result;
     }
 }
