@@ -32,6 +32,7 @@ public class Main {
             int num = Integer.parseInt(input);
             ISorting sortMethod = null;
             SortingProxyHandle handle;
+            //使用反射获取实例
             Reflections reflections=new Reflections("com.gavin.basicTest.SortingLearning.SortImpl");
             Set<Class<?>> classes=reflections.getTypesAnnotatedWith(SortMethod.class);
             for (Class clazz:classes
@@ -46,7 +47,7 @@ public class Main {
              }
             }
             if(sortMethod==null){
-                System.out.println("输入错误，请重新输入");
+                System.out.println("未找到对应的排序方法，请重新输入");
                 continue;
             }
             //使用动态代理和工厂模式处理对象，实现执行时间记录
