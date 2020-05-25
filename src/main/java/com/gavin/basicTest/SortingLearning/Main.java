@@ -12,6 +12,10 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Random r = new Random();
+        int[] array = new int[80000];
+        for (int i=0;i<array.length;i++){
+            array[i]=r.nextInt(800000);
+        }
         while (true) {
             System.out.println("请输入排序方法编号:1.冒泡排序,2.选择排序,3.插入排序");
             String input =sc.nextLine();
@@ -37,16 +41,14 @@ public class Main {
                 System.out.println("输入错误，请重新输入");
                 continue;
             }
-            int[] array = new int[80000];
-            for (int i=0;i<array.length;i++){
-                array[i]=r.nextInt(800000);
-            }
             //使用动态代理和工厂模式处理对象，实现执行时间记录
             ClassLoader classLoader = sortMethod.getClass().getClassLoader();
             Class<?>[] interfaces = sortMethod.getClass().getInterfaces();
             handle=new SortingProxyHandle(sortMethod);
             ISorting instance = (ISorting)Proxy.newProxyInstance(classLoader,interfaces,handle);
-            instance.sort(array);
+            int[] tempArray = new int[array.length];
+            System.arraycopy(array,0,tempArray,0,array.length);
+            instance.sort(tempArray);
         }
 
     }

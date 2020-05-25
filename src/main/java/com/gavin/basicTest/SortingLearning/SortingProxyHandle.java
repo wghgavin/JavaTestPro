@@ -14,6 +14,7 @@ public class SortingProxyHandle<T> implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         Class clazz =target.getClass();
         String sortName ="未知排序";
+        //拿到注解
         if(clazz.isAnnotationPresent(SortMethod.class)){
             SortMethod annotation = (SortMethod)clazz.getAnnotation(SortMethod.class);
             sortName = annotation.value();
