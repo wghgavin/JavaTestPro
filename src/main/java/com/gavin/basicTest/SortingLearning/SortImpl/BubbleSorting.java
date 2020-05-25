@@ -10,7 +10,7 @@ import java.util.Arrays;
  * 优化，增加flag，标志没有进行对换，说明早已经排序成功
  * 存在问题效率低
  */
-@SortMethod("冒泡排序")
+@SortMethod(name = "冒泡排序",id=1)
 public class BubbleSorting implements ISorting {
     @Override
     public void sort(int[] array){

@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 /**
  * 插入排序（O(n2)）(从小到大)【稳定】
- * 存在问题如果待插入的数特别小，那么会造成效率低下
+ * 存在问题如果待插入的数特别小，那么会造成效率低下(所以引入了希尔排序)
  * 思想:
  * 把n个待排序的元素看成为一个有序表和一个无序表，开始时有序表中只
  * 包含一个元素，无序表中包含n-1个元素，排序过程中每次从无序表中取出
@@ -16,7 +16,7 @@ import java.util.Arrays;
  * 进行n-1次插入：for循环
  * 把第一个元素做有序表，从第二元素开始遍历
  */
-@SortMethod("插入排序")
+@SortMethod(name="插入排序",id=3)
 public class InsertSorting implements ISorting {
     @Override
     public void sort(int[] array) {

@@ -17,7 +17,7 @@ public class SortingProxyHandle<T> implements InvocationHandler {
         //拿到注解
         if(clazz.isAnnotationPresent(SortMethod.class)){
             SortMethod annotation = (SortMethod)clazz.getAnnotation(SortMethod.class);
-            sortName = annotation.value();
+            sortName = annotation.name();
         }
         long start = System.currentTimeMillis();
         System.out.println(sortName+"正在执行");

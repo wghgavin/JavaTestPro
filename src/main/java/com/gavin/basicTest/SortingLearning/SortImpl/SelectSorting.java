@@ -14,7 +14,7 @@ import java.util.Arrays;
  * 总共交换n-1次
  * 比冒泡排序快,因为交换次数比较少
  */
-@SortMethod("选择排序")
+@SortMethod(name = "选择排序",id=2)
 public class SelectSorting implements ISorting {
     @Override
     public void sort(int[] array) {
