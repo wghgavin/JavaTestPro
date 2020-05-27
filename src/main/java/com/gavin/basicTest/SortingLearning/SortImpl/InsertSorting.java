@@ -6,7 +6,7 @@ import com.gavin.basicTest.SortingLearning.ISorting;
 import java.util.Arrays;
 
 /**
- * 插入排序（O(n2)）(从小到大)【稳定】
+ * 插入排序（O(n^2)）(从小到大)【稳定】
  * 存在问题如果待插入的数特别小，那么会造成效率低下(所以引入了希尔排序)
  * 思想:
  * 把n个待排序的元素看成为一个有序表和一个无序表，开始时有序表中只
@@ -15,6 +15,10 @@ import java.util.Arrays;
  * 有序表
  * 进行n-1次插入：for循环
  * 把第一个元素做有序表，从第二元素开始遍历
+ * 3,5,2,1,6
+ * 第一次插入:3,5,2,1,6
+ * 第二次插入:2,3,5,1,6
+ * 第三次插入:,1,2,3,5,6
  */
 @SortMethod(name="插入排序",id=3)
 public class InsertSorting implements ISorting {

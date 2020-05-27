@@ -64,9 +64,7 @@ public class Main {
                 System.out.println("未找到对应的排序方法，请重新输入");
                 continue;
             }
-            int[] tempArray = new int[array.length];
-            System.arraycopy(array, 0, tempArray, 0, array.length);
-            startSorting(sortMethod, tempArray);
+            startSorting(sortMethod, array);
         }
     }
 
@@ -88,10 +86,8 @@ public class Main {
             for (Class clazz : classes
             ) {
                 ISorting sorting = (ISorting) clazz.getDeclaredConstructor().newInstance();
-                int[] tempArray = new int[array.length];
-                System.arraycopy(array, 0, tempArray, 0, array.length);
                 executorService.execute(() -> {
-                    startSorting(sorting, tempArray);
+                    startSorting(sorting, array);
                 });
             }
             executorService.shutdown();
