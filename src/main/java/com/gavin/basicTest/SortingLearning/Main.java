@@ -38,9 +38,9 @@ public class Main {
             array[i] = r.nextInt(800000);
         }
         while (true) {
-            System.out.println("请输入排序方法编号:1.冒泡排序,2.选择排序,3.插入排序,4.希尔排序(交换式),5.希尔排序(移动式)");
+            System.out.println("请输入排序方法编号:1.冒泡排序,2.选择排序,3.插入排序,4.希尔排序(交换式),5.希尔排序(移动式),6.快速排序,7.归并排序");
             String input = sc.nextLine();
-            if (!input.matches("[1-5]{1}")) {
+            if (!input.matches("[1-7]{1}")) {
                 System.out.println("输入错误，请重新输入");
                 continue;
             }
