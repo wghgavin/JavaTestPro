@@ -13,6 +13,8 @@ import java.util.Arrays;
  * 第n-1次从arr[n-2]~arr[n-1]中选取最小值，与arr[n-2]交换
  * 总共交换n-1次
  * 比冒泡排序快,因为交换次数比较少
+ * * 【平均时间复杂度】O(n^2),最好情况O(n^2),最坏情况O(n^2)
+ *  * 【空间复杂度】O(1)
  */
 @SortMethod(name = "选择排序",id=2)
 public class SelectSorting implements ISorting {
@@ -33,6 +35,5 @@ public class SelectSorting implements ISorting {
             array[i]=min;
             array[minIndex]=temp;
         }
-       // System.out.println(Arrays.toString(array));
     }
 }

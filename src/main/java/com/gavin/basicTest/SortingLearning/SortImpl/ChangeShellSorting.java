@@ -9,6 +9,8 @@ import java.util.Arrays;
  * 希尔排序(交换式)https://www.cnblogs.com/MWCloud/p/11244163.html
  * 把记录按下标的一定增量分组，对每组使用直接插入排序算法排序:随着增量逐渐减少，每组
  * 包含的关键词越来越多，当增量减至1，整个文件被分成一组，算法就终止
+ * 【平均时间复杂度】O(n^2),最好情况O(n^2),最坏情况O(n^2)
+ * 【空间复杂度】O(1)
  */
 @SortMethod(name = "希尔排序(交换式)",id=4)
 public class ChangeShellSorting implements ISorting {
@@ -33,6 +35,5 @@ public class ChangeShellSorting implements ISorting {
                 }
             }
         }
-        System.out.println(Arrays.toString(array));
     }
 }

@@ -9,6 +9,8 @@ import org.reflections.Reflections;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.lang.annotation.Annotation;
+import java.lang.invoke.MethodType;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Proxy;
 import java.util.Random;
@@ -33,14 +35,15 @@ public class Main {
         System.setOut(psConsole);
         Scanner sc = new Scanner(System.in);
         Random r = new Random();
-        int[] array = new int[80000];
+        int[] array = new int[8000000];
         for (int i = 0; i < array.length; i++) {
-            array[i] = r.nextInt(800000);
+            array[i] = r.nextInt(8000000);
         }
         while (true) {
-            System.out.println("请输入排序方法编号:1.冒泡排序,2.选择排序,3.插入排序,4.希尔排序(交换式),5.希尔排序(移动式),6.快速排序,7.归并排序");
+            System.out.println("请输入排序方法编号:1.冒泡排序,2.选择排序,3.插入排序,4.希尔排序(交换式)," +
+                    "5.希尔排序(移动式),6.快速排序,7.归并排序,8.基数排序");
             String input = sc.nextLine();
-            if (!input.matches("[1-7]{1}")) {
+            if (!input.matches("[1-8]{1}")) {
                 System.out.println("输入错误，请重新输入");
                 continue;
             }
@@ -64,7 +67,8 @@ public class Main {
                 System.out.println("未找到对应的排序方法，请重新输入");
                 continue;
             }
-            startSorting(sortMethod, array);
+            //startSorting(sortMethod, array);
+            startSorting(sortMethod,new int[]{49, 38, 65, 97, 76, 13, 27, 50});
         }
     }
 
@@ -75,9 +79,10 @@ public class Main {
         try {
             ExecutorService executorService = Executors.newFixedThreadPool(10);
             Reflections reflections = new Reflections("com.gavin.basicTest.SortingLearning.SortImpl");
+
             Set<Class<?>> classes = reflections.getTypesAnnotatedWith(SortMethod.class);
             Random r = new Random();
-            int[] array = new int[80000];
+            int[] array = new int[800000];
             for (int i = 0; i < array.length; i++) {
                 array[i] = r.nextInt(800000);
             }
@@ -85,10 +90,13 @@ public class Main {
             System.setOut(new PrintStream("./log.txt"));
             for (Class clazz : classes
             ) {
-                ISorting sorting = (ISorting) clazz.getDeclaredConstructor().newInstance();
-                executorService.execute(() -> {
-                    startSorting(sorting, array);
-                });
+                SortMethod annotation =(SortMethod)(clazz.getAnnotation(SortMethod.class));
+                if(annotation.id()>2){
+                    ISorting sorting = (ISorting) clazz.getDeclaredConstructor().newInstance();
+                    executorService.execute(() -> {
+                        startSorting(sorting, array);
+                    });
+                }
             }
             executorService.shutdown();
             executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);//这里会同步等待

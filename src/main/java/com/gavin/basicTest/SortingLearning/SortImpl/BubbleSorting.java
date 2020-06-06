@@ -6,9 +6,11 @@ import com.gavin.basicTest.SortingLearning.ISorting;
 import java.util.Arrays;
 
 /**
- * 冒泡排序(时间复杂度为O(n^2))【稳定型】//从小到大
+ * 冒泡排序【稳定型】//从小到大
  * 优化，增加flag，标志没有进行对换，说明早已经排序成功
  * 存在问题效率低
+ * 【平均时间复杂度】O(n^2),最好情况O(n),最坏情况O(n^2)
+ * 【空间复杂度】O(1)
  */
 @SortMethod(name = "冒泡排序",id=1)
 public class BubbleSorting implements ISorting {
@@ -32,8 +34,5 @@ public class BubbleSorting implements ISorting {
                 break;//终止循环
             }
         }
-        //Arrays.stream(array).forEach(System.out::println);
-        //或者
-        //System.out.println(Arrays.toString(array));
     }
 }

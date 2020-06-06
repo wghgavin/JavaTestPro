@@ -19,6 +19,8 @@ import java.util.Arrays;
  * 第一次插入:3,5,2,1,6
  * 第二次插入:2,3,5,1,6
  * 第三次插入:,1,2,3,5,6
+ * 【平均时间复杂度】O(n^2),最好情况O(n),最坏情况O(n^2)
+ * 【空间复杂度】O(1)
  */
 @SortMethod(name="插入排序",id=3)
 public class InsertSorting implements ISorting {
@@ -40,6 +42,5 @@ public class InsertSorting implements ISorting {
                 array[insertIndex+1] = insertValue;
             }
         }
-        //System.out.println(Arrays.toString(array));
     }
 }

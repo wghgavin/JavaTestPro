@@ -6,6 +6,8 @@ import com.gavin.basicTest.SortingLearning.ISorting;
 /**
  * 先找位置再插入，而不是无脑交换位置，极大地减少了时间消耗(不稳定型（会破坏结构）,
  * 时间复杂度<O(n^2))//比插入排序快，是优化了的插入排序
+ * 【平均时间复杂度】O(nlogn),最好情况O(n(logn)^2),最坏情况O(n(logn)^2)
+ * 【空间复杂度】O(1)
  */
 @SortMethod(name = "希尔排序(移动式)",id=5)
 public class MoveShellSorting implements ISorting {
