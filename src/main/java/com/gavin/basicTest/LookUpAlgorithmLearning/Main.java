@@ -1,6 +1,4 @@
-package com.gavin.basicTest.LopkUpAlgorithmLearning;
-
-import com.gavin.basicTest.SortingLearning.ISorting;
+package com.gavin.basicTest.LookUpAlgorithmLearning;
 
 import java.util.Random;
 import java.util.Scanner;

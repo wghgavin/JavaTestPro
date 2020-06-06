@@ -1,7 +1,6 @@
-package com.gavin.basicTest.LopkUpAlgorithmLearning;
+package com.gavin.basicTest.LookUpAlgorithmLearning;
 
-import com.gavin.basicTest.LopkUpAlgorithmLearning.Annotation.LookupMethod;
-import com.gavin.basicTest.SortingLearning.Annotation.SortMethod;
+import com.gavin.basicTest.LookUpAlgorithmLearning.Annotation.LookupMethod;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
