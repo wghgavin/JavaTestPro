@@ -68,7 +68,7 @@ public class Main {
                 continue;
             }
             //startSorting(sortMethod, array);
-            startSorting(sortMethod,new int[]{49, 38, 65, 97, 76, 13, 27, 50});
+            startSorting(sortMethod,array);
         }
     }
 
