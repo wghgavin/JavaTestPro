@@ -1,5 +1,6 @@
-package com.gavin.basicTest.IOLearning;
+package com.gavin.basicTest.IOLearning.IO;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 

@@ -1,4 +1,4 @@
-package com.gavin.basicTest.IOLearning;
+package com.gavin.basicTest.IOLearning.IO;
 
 import java.io.FileReader;
 import java.io.FileWriter;

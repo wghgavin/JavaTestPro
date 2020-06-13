@@ -1,9 +1,6 @@
-package com.gavin.basicTest.IOLearning;
+package com.gavin.basicTest.IOLearning.IO;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 
 public class BufferStreamTest {
     public static void main(String[] args) {
