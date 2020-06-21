@@ -1,4 +1,4 @@
-package com.gavin.basicLearning.JavaClassLearning;
+package com.gavin.basicLearning.JavaClassLearning.StaticInitialTest;
 
 public class Demo {
     public static void main(String[] args) {
@@ -8,7 +8,7 @@ public class Demo {
         System.out.println(A.max);
         //反射 主动引用
         try {
-            Class.forName("com.gavin.basicLearning.JavaClassLearning.A").getDeclaredConstructor().newInstance();
+            Class.forName("com.gavin.basicLearning.JavaClassLearning.StaticInitialTest.B").getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }

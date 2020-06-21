@@ -3,15 +3,15 @@ package com.gavin.basicLearning.IOLearning.NIO.SocketIO;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
-import java.nio.channels.SelectionKey;
-import java.nio.channels.Selector;
-import java.nio.channels.ServerSocketChannel;
-import java.nio.channels.SocketChannel;
+import java.nio.channels.*;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Set;
 
 /**
  * 非阻塞式NIO
+ * Selector:
+ * Selector能够检测多个注册的通道上是否有事件发生
  * Selector选择的监听事件类型
  * 读SelectionKey.IO_READ(1)
  * 写:SelectionKey.OP_WRITE(4)
@@ -20,10 +20,10 @@ import java.util.Iterator;
  */
 public class NonBlockingNIOTest {
     public static void main(String[] args) {
-        new Thread(()->server()).start();
-        new Thread(()->cleint()).start();
-        new Thread(()->cleint()).start();
-        new Thread(()->cleint()).start();
+        new Thread(() -> server()).start();
+        new Thread(() -> cleint()).start();
+        new Thread(() -> cleint()).start();
+        new Thread(() -> cleint()).start();
     }
 
     /**
@@ -62,7 +62,7 @@ public class NonBlockingNIOTest {
             Selector selector = Selector.open();
             //5.将通道注册到选择器,制定监听接收事件
             serverChannel.register(selector, SelectionKey.OP_ACCEPT);
-           // System.out.println(selector.select());
+            // System.out.println(selector.select());
             //6.轮询式获取选择器上已经准备就绪的事件
             while (selector.select() > 0) {
                 //7.获取当前选择器中所有注册的选择键
@@ -82,9 +82,9 @@ public class NonBlockingNIOTest {
                         //13.获取当前先择期上"读就绪"状态的通道
                         SocketChannel clientChannel = (SocketChannel) sk.channel();
                         ByteBuffer buf = ByteBuffer.allocate(1024);
-                        while (clientChannel.read(buf)>0){
+                        while (clientChannel.read(buf) > 0) {
                             buf.flip();
-                            System.out.println(new String(buf.array(),0,buf.limit()));
+                            System.out.println(new String(buf.array(), 0, buf.limit()));
                             buf.clear();
                         }
                     }
@@ -96,4 +96,50 @@ public class NonBlockingNIOTest {
             e.printStackTrace();
         }
     }
+    private static void server2() {
+        try {
+            //得到一个网络通道
+            ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
+            //得到一个selector对象
+            Selector selector = Selector.open();
+            //绑定端口
+            serverSocketChannel.bind(new InetSocketAddress(6666));
+            //设置为非阻塞
+            serverSocketChannel.configureBlocking(false);
+            //注册Selector事件
+            serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+            while (true) {
+                //等待五秒，没有事件发生继续等待
+                if (selector.select(5000) == 0) {
+                    System.out.println("服务器等待了五秒,无连接");
+                    continue;
+                }
+                Iterator<SelectionKey> it = selector.selectedKeys().iterator();
+                while (it.hasNext()) {
+                    SelectionKey key = it.next();
+                    if (key.isAcceptable()) {
+                        SocketChannel socketChannel = serverSocketChannel.accept();
+                        //11.切换非阻塞模式
+                        socketChannel.configureBlocking(false);
+                        socketChannel.register(selector, SelectionKey.OP_READ);
+                    } else if (key.isReadable()) {
+                        //.获取当前先择期上"读就绪"状态的通道
+                        SocketChannel clientChannel = (SocketChannel) key.channel();
+                        ByteBuffer buf = ByteBuffer.allocate(1024);
+                        while (clientChannel.read(buf)>0){
+                            buf.flip();
+                            System.out.println(new String(buf.array(), 0, buf.limit()));
+                            buf.clear();
+                        }
+                    }
+                    it.remove();
+                }
+            }
+
+        } catch (Exception ioException) {
+            ioException.printStackTrace();
+        }
+    }
 }
+
+

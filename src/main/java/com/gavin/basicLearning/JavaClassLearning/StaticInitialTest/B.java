@@ -1,4 +1,4 @@
-package com.gavin.basicLearning.JavaClassLearning;
+package com.gavin.basicLearning.JavaClassLearning.StaticInitialTest;
 
 class B extends A {//A的子类
 

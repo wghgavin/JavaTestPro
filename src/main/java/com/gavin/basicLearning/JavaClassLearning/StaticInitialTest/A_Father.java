@@ -1,4 +1,4 @@
-package com.gavin.basicLearning.JavaClassLearning;
+package com.gavin.basicLearning.JavaClassLearning.StaticInitialTest;
 
 public class A_Father {
     static {
