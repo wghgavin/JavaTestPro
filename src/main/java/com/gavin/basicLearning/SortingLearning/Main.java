@@ -30,16 +30,16 @@ public class Main {
         }
         while (true) {
             System.out.println("请输入排序方法编号:1.冒泡排序,2.选择排序,3.插入排序,4.希尔排序(交换式)," +
-                    "5.希尔排序(移动式),6.快速排序,7.归并排序,8.基数排序");
+                    "5.希尔排序(移动式),6.快速排序,7.归并排序,8.基数排序,9.堆排序");
             String input = sc.nextLine();
-            if (!input.matches("[1-8]{1}")) {
+            if (!input.matches("[1-9]{1}")) {
                 System.out.println("输入错误，请重新输入");
                 continue;
             }
             int num = Integer.parseInt(input);
             ISorting sortMethod = null;
             //使用反射获取实例
-            Reflections reflections = new Reflections("com.gavin.basicTest.SortingLearning.SortImpl");
+            Reflections reflections = new Reflections("com.gavin.basicLearning.SortingLearning.SortImpl");
             Set<Class<?>> classes = reflections.getTypesAnnotatedWith(SortMethod.class);
             for (Class clazz : classes
             ) {
@@ -56,7 +56,7 @@ public class Main {
                 System.out.println("未找到对应的排序方法，请重新输入");
                 continue;
             }
-            //startSorting(sortMethod, array);
+            //startSorting(sortMethod, new int[]{4,87,65,78,14,25,33,41,2,89,44,11});
             startSorting(sortMethod,array);
         }
     }

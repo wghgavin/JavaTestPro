@@ -42,6 +42,6 @@ public class RadixSorting implements ISorting {
             }
             index *= 10;
         }
-        System.out.println(Arrays.toString(array));
+        //System.out.println(Arrays.toString(array));
     }
 }
