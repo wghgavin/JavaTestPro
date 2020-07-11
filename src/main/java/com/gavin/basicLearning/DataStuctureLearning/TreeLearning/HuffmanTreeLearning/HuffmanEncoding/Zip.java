@@ -9,12 +9,14 @@ import java.util.*;
  * (3)编写一个方法，将准备构建赫夫曼树的Node节点放到list，
  * (4)通过list创建对应赫夫曼树
  */
-public class Main {
+public class Zip {
     static Map<Byte,String> huffmanCodes = new HashMap<>();
     public static void main(String[] args) {
         String content="i like like like java do you like a java";
+        //byte b = (byte) Integer.parseInt("10100010",2);
         byte[] bytes = content.getBytes();
         byte[] zipBytes =huffmanZip(bytes);
+        new Unzip(huffmanCodes).decode(zipBytes);
     }
 
     /**
@@ -42,6 +44,7 @@ public class Main {
         for(byte b:bytes){
             stringBuilder.append(huffmanCodes.get(b));
         }
+        System.out.println(stringBuilder);
         //转换完之后，再转成byte数组
         int strLength = stringBuilder.length();
         int byteLength = (strLength+7)/8;
@@ -55,7 +58,7 @@ public class Main {
             else {
                 strByte = stringBuilder.substring(i,i+8);
             }
-            bs[index++]=(byte) Integer.parseInt(strByte,2);
+            bs[index++]=(byte) Integer.parseInt(strByte,2);//原理是转为补码,补码=反码后加1
         }
         return bs;
     }
