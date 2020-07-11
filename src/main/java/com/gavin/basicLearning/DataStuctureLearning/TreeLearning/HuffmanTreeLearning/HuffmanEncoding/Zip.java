@@ -20,6 +20,7 @@ public class Zip {
         getCodes(rootNode, "", new StringBuilder());
     }
 
+
     /**
      * 获取哈夫曼编码
      *
