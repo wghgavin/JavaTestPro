@@ -18,9 +18,6 @@ public class Unzip {
 
     }
 
-    public static void main(String[] args) {
-        new Unzip().byteToBitString(true, (byte) 6);
-    }
 
     /**
      * 完成对压缩数据的解码
