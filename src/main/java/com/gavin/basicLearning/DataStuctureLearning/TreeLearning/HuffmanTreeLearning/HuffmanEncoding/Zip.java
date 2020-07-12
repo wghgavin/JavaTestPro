@@ -1,5 +1,8 @@
 package com.gavin.basicLearning.DataStuctureLearning.TreeLearning.HuffmanTreeLearning.HuffmanEncoding;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -10,16 +13,7 @@ import java.util.*;
  * (4)通过list创建对应赫夫曼树
  */
 public class Zip {
-    Map<Byte, String> huffmanCodes = new HashMap<>();
-
-    public Zip(String content) {
-        byte[] bytes = content.getBytes();
-        List<CharNode> nodes = getNodes(bytes);
-        CharNode rootNode = createHuffmanTree(nodes);
-        //生成哈夫曼表
-        getCodes(rootNode, "", new StringBuilder());
-    }
-
+    private Map<Byte, String> huffmanCodes = new HashMap<>();
 
     /**
      * 获取哈夫曼编码
@@ -31,12 +25,40 @@ public class Zip {
     }
 
     /**
-     * @param bytes 原始的字节数组
      * @return 经过哈夫曼编码压缩后的字节数组
      */
-    public byte[] Zip(byte[] bytes) {
+    public byte[] zipString(String content) {
+        byte[] bytes = content.getBytes();
+        System.out.println(Arrays.toString(bytes));
+        List<CharNode> nodes = getNodes(bytes);
+        CharNode rootNode = createHuffmanTree(nodes);
+        //生成哈夫曼表
+        getCodes(rootNode, "", new StringBuilder());
         byte[] bs = zip(bytes, huffmanCodes);
         return bs;
+    }
+
+    /**
+     * 压缩文件
+     * @param srcPath
+     * @param desPath
+     */
+    public void zipFile(String srcPath, String desPath) {
+        FileInputStream in = null;
+        try {
+            in = new FileInputStream(srcPath);
+            byte[] bytes = new byte[in.available()];
+            in.read(bytes);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -76,6 +98,7 @@ public class Zip {
      * @param stringBuilder
      */
     private void getCodes(CharNode node, String code, StringBuilder stringBuilder) {
+        huffmanCodes.clear();
         if (node != null) {
             StringBuilder sb = new StringBuilder(stringBuilder);
             sb.append(code);
