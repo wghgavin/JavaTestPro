@@ -1,8 +1,6 @@
 package com.gavin.basicLearning.DataStuctureLearning.TreeLearning.HuffmanTreeLearning.HuffmanEncoding;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -29,14 +27,20 @@ public class Zip {
      */
     public byte[] zipString(String content) {
         byte[] bytes = content.getBytes();
-        System.out.println(Arrays.toString(bytes));
+       // System.out.println(Arrays.toString(bytes));
+       return zipBytes(bytes);
+    }
+
+    private byte[] zipBytes(byte[] bytes){
         List<CharNode> nodes = getNodes(bytes);
         CharNode rootNode = createHuffmanTree(nodes);
         //生成哈夫曼表
+        huffmanCodes.clear();
         getCodes(rootNode, "", new StringBuilder());
         byte[] bs = zip(bytes, huffmanCodes);
         return bs;
     }
+
 
     /**
      * 压缩文件
@@ -45,16 +49,25 @@ public class Zip {
      */
     public void zipFile(String srcPath, String desPath) {
         FileInputStream in = null;
+        FileOutputStream fos = null;
+        ObjectOutputStream oos =null;
         try {
             in = new FileInputStream(srcPath);
             byte[] bytes = new byte[in.available()];
             in.read(bytes);
-
+            byte[] zipBytes =zipBytes(bytes);
+            fos=new FileOutputStream(desPath);
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(zipBytes);
+            //还要把哈夫曼编码写入，因为需要解压
+            oos.writeObject(huffmanCodes);
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
             try {
                 in.close();
+                fos.close();
+                oos.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -72,7 +85,7 @@ public class Zip {
         for (byte b : bytes) {
             stringBuilder.append(huffmanCodes.get(b));
         }
-        System.out.println(stringBuilder);
+        //System.out.println(stringBuilder);
         //转换完之后，再转成byte数组
         int strLength = stringBuilder.length();
         int byteLength = (strLength + 7) / 8;
@@ -98,7 +111,6 @@ public class Zip {
      * @param stringBuilder
      */
     private void getCodes(CharNode node, String code, StringBuilder stringBuilder) {
-        huffmanCodes.clear();
         if (node != null) {
             StringBuilder sb = new StringBuilder(stringBuilder);
             sb.append(code);
