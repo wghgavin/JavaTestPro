@@ -14,14 +14,6 @@ public class Unzip {
         this.huffmanMap = huffmanMap;
     }
 
-    public Unzip() {
-
-    }
-
-    public static void main(String[] args) {
-        new Unzip().byteToBitString(true, (byte) 6);
-    }
-
     /**
      * 完成对压缩数据的解码
      *
@@ -33,6 +25,7 @@ public class Unzip {
             boolean flag = (i != huffmanCodes.length - 1);
             sb.append(byteToBitString(flag, huffmanCodes[i]));
         }
+        System.out.println(sb);
         //字符串按照指定赫夫曼编码进行解码
         Map<String, Byte> map = new HashMap<>();
         for (Map.Entry<Byte, String> entry : huffmanMap.entrySet()
@@ -41,17 +34,21 @@ public class Unzip {
         }
         int slow = 0;
         int fast = 1;
-        List<Byte> list = new LinkedList<Byte>();
+        LinkedList<Byte> list = new LinkedList();
         while (fast <= sb.length()) {
             String str = sb.substring(slow, fast);
             Byte b = map.get(str);
             if (b != null) {
-                slow = fast + 1;
+                slow = fast;
                 list.add(b);
             }
             fast++;
         }
-        return null;
+        byte[] bytes = new byte[list.size()];
+        for(int i=0;i<bytes.length;i++){
+            bytes[i]=list.get(i);
+        }
+        return bytes;
     }
 
     /**
