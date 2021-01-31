@@ -22,8 +22,8 @@ public class WeakReferenceTest {
         System.out.println(weakReference.get());
     }
     private static void testWithReferencce(){
-        People people=new People("zhouqian",20);
-        WeakReference<People>reference=new WeakReference<People>(people);//<span style="color:#FF0000;">关联强引用</span>
+        Integer myInt=new Integer(20);
+        WeakReference<Integer>reference=new WeakReference<Integer>(myInt);//<span style="color:#FF0000;">关联强引用</span>
         System.out.println(reference.get());
         System.gc();
         System.out.println(reference.get());
