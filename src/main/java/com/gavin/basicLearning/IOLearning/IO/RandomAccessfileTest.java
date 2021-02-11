@@ -1,9 +1,8 @@
 package com.gavin.basicLearning.IOLearning.IO;
 
-import org.ghost4j.util.StreamGobbler;
 
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 
 /**
@@ -20,77 +19,81 @@ import java.io.RandomAccessFile;
  * ----------------------------------------------------------------------
  */
 public class RandomAccessfileTest {
+
     public static void main(String[] args) {
-        //关联源
-        File src = new File("log.txt");
-        //关联目的
-        File desc = new File("b.txt");
-        //获取源的总大小
-        long length = src.length();
-        // 开两条线程,并分配下载任务
-        new DownLoadThread(0, src, desc, length / 2).start();
-        new DownLoadThread(length / 2 , src, desc, length - (length / 2)).start();
     }
-    static class DownLoadThread extends Thread{
-        private long start;
+    public static class DownLoadFileUtil {
         private File src;
-        private long total;
-        private File desc;
-        /**
-         *
-         * @param start
-         *            开始下载的位置
-         * @param src
-         *            要下载的文件
-         * @param desc
-         *            要下载的目的地
-         * @param total
-         *            要下载的总量
-         */
-        public DownLoadThread(long start, File src, File desc, long total) {
-            this.start = start;
+        private File dst;
+        private int threadNum;
+        private int blockSize;
+
+        public DownLoadFileUtil(File src, File dst, int threadNum) {
             this.src = src;
-            this.desc = desc;
-            this.total = total;
+            this.dst = src;
+            this.threadNum = threadNum;
+            this.blockSize = (int)(src.length() % threadNum == 0 ? src.length() / threadNum : src.length() / threadNum + 1);
         }
-        @Override
-        public void run(){
-            try {
-                // 创建输入流关联源,因为要指定位置读和写,所以我们需要用随机访问流
-                RandomAccessFile src = new RandomAccessFile(this.src, "rw");
-                RandomAccessFile desc = new RandomAccessFile(this.desc, "rw");
-                // 源和目的都要从start开始
-                src.seek(start);
-                desc.seek(start);
-                // 开始读写
-                byte[] arr = new byte[1024];
-                int len;
-                long count = 0;
-                while ((len = src.read(arr)) != -1) {
-                    //分三种情况
-                    if (len + count > total) {
-                        //1.当读取的时候操作自己该线程的下载总量的时候,需要改变len
-                        len = (int) (total - count);
-                        desc.write(arr, 0, len);
-                        //证明该线程下载任务已经完毕,结束读写操作
-                        break;
-                    } else if (len + count < total) {
-                        //2.证明还没有到下载总量,直接将内容写入
-                        desc.write(arr, 0, len);
-                        //并且使计数器任务累加
-                        count += arr.length;
-                    } else {
-                        //3.证明改好到下载总量
-                        desc.write(arr, 0, len);
-                        //结束读写
-                        break;
-                    }
-                }
-                src.close();
-                desc.close();
-            } catch (Exception e) {
-                e.printStackTrace();
+        // 开启多线程下载
+        public void download() {
+            // 循环开多个线程
+            for (int i = 0; i < threadNum; i++) {
+                DownLoadThread thread = new DownLoadThread(i);
+                thread.setName("线程" + (i + 1));
+                thread.start();
             }
         }
-   }
+
+        // 定义一个下载线程
+        private class DownLoadThread extends Thread {
+            //表示第几个线程
+            private int index;
+            //起始位置
+            private long startPos;
+            private int blockSize;
+
+            public DownLoadThread(int index) {
+                this.index = index;
+                startPos = index * DownLoadFileUtil.this.blockSize;
+                this.blockSize = DownLoadFileUtil.this.blockSize;
+            }
+
+            @Override
+            public void run() {
+                RandomAccessFile rafR = null;
+                RandomAccessFile rafW = null;
+                try {
+                    // 要读入的文件
+                    rafR = new RandomAccessFile(src, "r");
+                    // 要写入的文件
+                    rafW = new RandomAccessFile(dst, "rw");
+                    rafR.seek(startPos);
+                    rafW.seek(startPos);
+                    //缓冲区大小
+                    byte[] buf = new byte[1024*1024];
+                    int len = -1;
+                    while (blockSize>0){
+                        len = Math.min(blockSize, buf.length);
+                        rafR.read(buf,0, len);
+                        rafW.write(buf, 0, len);
+                        blockSize -= len;
+                    }
+                    System.out.println(Thread.currentThread().getName() + "下载完毕");
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                } finally {
+                    try {
+                        if (rafR != null) {
+                            rafR.close();
+                        }
+                        if (rafW != null) {
+                            rafW.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
 }
